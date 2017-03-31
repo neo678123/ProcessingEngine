@@ -21,22 +21,22 @@ public class Camera
 
    }
    
-   //   R(S(v+u)+T)-u
+   /*   R(S(v+u)+T)-u
    public Vec2 transform(Vec2 v)
    {
      float c = cos(rotation); float s = sin(rotation);
      Vec2 u = new Vec2(width/2, height/2);
      
      return v.add(u).transform(scale, 0, 0, scale).add(translation).transform(c, -s, s, c).sub(u);
-   }
+   }*/
    
-   //   Si(Ri(v+u)-T)-u
+   //   SiRi(v-u)+u-T
    public Vec2 invTransform(Vec2 v)
    {
-     float c = cos(-rotation); float s = sin(-rotation);
+     float c = cos(rotation); float s = sin(rotation);
      Vec2 u = new Vec2(width/2, height/2);
      
-     return v.add(u).transform(c, -s, s, c).sub(translation).transform(1f/scale, 0, 0, 1f/scale).sub(u);
+     return v.sub(u).transform(c, -s, s, c).transform(1f/scale, 0, 0, 1f/scale).add(u).sub(translation);
    }
    
    public void applyInverseTransform() //Tr2
